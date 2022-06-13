@@ -112,6 +112,7 @@
   
   .post__footerLeft {
     margin-left: auto;
+    display: flex;
   }
   
   .post__footerLeft > .MuiSvgIcon-root {
@@ -197,4 +198,9 @@
     color:#8f1f1b;
     border-radius: 15px;
   }
+  
+  /* .shareIconContainer{
+    font-size: 20px;
+  } */
+
   

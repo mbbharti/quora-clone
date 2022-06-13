@@ -8,7 +8,8 @@ import {selectQuestionId ,selectQuestionName,setQuestionInfo} from "../features/
 import db from "../firebase";
 import {selectUser} from '../features/UserSlice';
 import firebase from 'firebase/compat/app';
-
+import {FacebookShareButton,WhatsappShareButton} from 'react-share';
+import { FacebookIcon,WhatsappIcon } from 'react-share';
 
 Modal.setAppElement('#root');
 
@@ -22,6 +23,11 @@ export const Post = ({Id,question,image,timestamp,users}) => {
   const [getAnswers, setGetAnswers] = useState([]);
   const questionName = useSelector(selectQuestionName);
   const [upvote,setUpvote] = useState({isClicked:'true',upvoteValue:0,downvoteValue:0});
+  const [share,setShare] = useState(false);
+
+  const handleShare = ()=> {
+    setShare(current => !current);
+  }; 
 
   // let upvoteValue =0;
   // let downvoteValue =0;
@@ -200,7 +206,7 @@ export const Post = ({Id,question,image,timestamp,users}) => {
             </p>
           ))}
         </div>
-        <img src={image} alt="Image not Found" />
+        <img src={image} alt="" />
       </div>
       <div className="post__footer">
         <div className="post__footerAction">
@@ -265,7 +271,27 @@ export const Post = ({Id,question,image,timestamp,users}) => {
             </div>
           </Modal>
         <div className="post__footerLeft">
-          <ShareOutlined />
+          <ShareOutlined onClick={handleShare} />
+            { share && (
+                        <div className='shareIconContainer'>
+                        <FacebookShareButton
+                        size={16}
+                          url="https://www.facebook.com/"
+                          quote={"share on FB"}
+                          hashtag="#ReaderPoint">
+                            <FacebookIcon 
+                              logoFillColor="white" round={true}
+                              ></FacebookIcon> 
+                          </FacebookShareButton>
+                          <WhatsappShareButton
+                          size={16}
+                            url="https://www.whatsapp.com/"
+                            quote={"share on whatsapp"}
+                            hashtag="#ReaderPoint">
+                              <WhatsappIcon logoFillColor="white" round={true}></WhatsappIcon>
+                           </WhatsappShareButton>   
+                      </div>
+            )}
           <MoreHorizOutlined />
         </div>
       </div>
